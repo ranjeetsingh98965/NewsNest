@@ -1,79 +1,35 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Quiz-Me
+A quiz is a form of game or mind sport in which players attempt to answer questions correctly about a certain or variety of subjects.<br/>
+LOGIN<br/>
+<img src="https://github.com/user-attachments/assets/91ead098-c7d1-400a-99ec-cc5f02d9f7fa" width="230" height="400"><br/><br/>
 
-# Getting Started
+SIGNUP<br/>
+<img src="https://user-images.githubusercontent.com/80505785/177042123-e9ca779f-ca28-47a6-9052-c7b94543d44d.png" width="230" height="400"><br/><br/>
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+CATEGORY<br/>
+<img src="https://user-images.githubusercontent.com/80505785/177042168-efd172c4-09ba-45fd-8e46-e8b819ffd2cb.png" width="230" height="400"><br/><br/>
 
-## Step 1: Start the Metro Server
+LEADERBOARD<br/>
+<img src="https://user-images.githubusercontent.com/80505785/177042208-57666354-aa53-47cf-a198-67c57302f707.png" width="230" height="400"><br/><br/>
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+WALLET<br/>
+<img src="https://user-images.githubusercontent.com/80505785/177042242-2ee23a7d-058f-47bc-9db9-f76433b9085e.png" width="230" height="400"><br/><br/>
 
-To start Metro, run the following command from the _root_ of your React Native project:
+PROFILE<br/>
+<img src="https://user-images.githubusercontent.com/80505785/177042264-80178851-2923-48a4-bfa5-8926eebed046.png" width="230" height="400"><br/><br/>
 
-```bash
-# using npm
-npm start
+QUESTIONS<br/>
+<img src="https://user-images.githubusercontent.com/80505785/177042284-ad550fbf-e216-4b54-a1d1-0a8dd01e1f32.png" width="230" height="400"><br/><br/>
 
-# OR using Yarn
-yarn start
-```
+RESULT<br/>
+<img src="https://user-images.githubusercontent.com/80505785/177042308-e147cd2d-b9a4-49b0-963f-5f36fa90bf98.png" width="230" height="400"><br/><br/>
 
-## Step 2: Start your Application
+SPINNER<br/>
+<img src="https://user-images.githubusercontent.com/80505785/177042321-bc068811-adf0-4c97-b6c3-e448edce2f44.png" width="230" height="400"><br/><br/>
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
 
-### For Android
 
-```bash
-# using npm
-npm run android
 
-# OR using Yarn
-yarn android
-```
 
-### For iOS
 
-```bash
-# using npm
-npm run ios
 
-# OR using Yarn
-yarn ios
-```
-
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
-
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
-
-## Step 3: Modifying your App
-
-Now that you have successfully run the app, let's modify it.
-
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
-
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
