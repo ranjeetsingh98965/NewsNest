@@ -37,7 +37,6 @@ const SplashScreen = () => {
         animated={true}
         barStyle={'dark-content'}
         backgroundColor={theme.COLORS.WHITE}
-        hidden={true}
       />
       <ImageBackground
         source={require('../assets/images/splash.jpg')}

@@ -7,13 +7,15 @@ import {
   TouchableOpacity,
   BackHandler,
   ScrollView,
+  StatusBar,
 } from 'react-native';
 import theme from '../constants/theme';
 import Banner from '../components/Banner';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {TRANDING_NEWS_API} from '@env';
+import {TRANDING_NEWS_API, CATEGORY_NEWS_API} from '@env';
 import axios from 'axios';
+import Loading from '../components/Loading';
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -22,6 +24,7 @@ const HomeScreen = () => {
   const [name, setName] = useState('Guest');
   const [gender, setGender] = useState('');
   const [topTrandingNewsData, setTopTrandingNewsData] = useState([]);
+  const [topCategoryNewsData, setTopCategoryNewsData] = useState([]);
 
   const getNameAndGender = async () => {
     const name = await AsyncStorage.getItem('name');
@@ -56,9 +59,29 @@ const HomeScreen = () => {
     }
   };
 
+  const get_categpory_News_Data = (category: String) => {
+    console.log('lele: ', TRANDING_NEWS_API);
+    try {
+      axios
+        .get(
+          `https://api.mediastack.com/v1/news?access_key=${CATEGORY_NEWS_API}=${category}&languages=en&countries=in`,
+        )
+        .then(response => {
+          console.log('Data:', response.data);
+          setTopCategoryNewsData(response.data.data);
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    } catch (error) {
+      console.log('err: ', error);
+    }
+  };
+
   useEffect(() => {
     getNameAndGender();
     get_Top_News_Data();
+    get_categpory_News_Data('general');
   }, []);
 
   useEffect(() => {
@@ -94,253 +117,255 @@ const HomeScreen = () => {
   );
   // Back Button Ends
 
-  const bannerData = [
-    {
-      id: 1,
-      title: 'lulu 1',
-      description: 'lkj',
-      uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRbKnG--JqNfXHh0OXOQgveASbG2ZDeOrpcQ&s',
-    },
-    {
-      id: 2,
-      title: 'lulu 1',
-      description: 'lkj',
-      uri: 'https://images.ctfassets.net/hrltx12pl8hq/28ECAQiPJZ78hxatLTa7Ts/2f695d869736ae3b0de3e56ceaca3958/free-nature-images.jpg?fit=fill&w=1200&h=630',
-    },
-    {
-      id: 3,
-      title: 'lulu 1',
-      description: 'lkj',
-      uri: 'https://imgv3.fotor.com/images/slider-image/A-clear-close-up-photo-of-a-woman.jpg',
-    },
-  ];
-
   const category = [
     {
       id: 1,
-      title: 'MOBILE',
+      title: 'general',
     },
     {
       id: 2,
-      title: 'GADGETS',
+      title: 'business',
     },
     {
       id: 3,
-      title: 'DESIGN',
+      title: 'entertainment',
     },
     {
       id: 4,
-      title: 'PHOTOGRAPHY',
+      title: 'health',
     },
     {
       id: 5,
-      title: 'REVIEWS',
-    },
-  ];
-
-  const blogList = [
-    {
-      id: 1,
-      title: 'Lorem ipsum dolor sit amet consectetur.',
-      owner: '@Crazy Technology',
-      date: 'April 27, 2023',
-      uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRbKnG--JqNfXHh0OXOQgveASbG2ZDeOrpcQ&s',
+      title: 'science',
     },
     {
-      id: 2,
-      title: 'Lorem ipsum dolor sit amet consectetur.',
-      owner: '@Crazy Technology',
-      date: 'April 27, 2023',
-      uri: 'https://images.ctfassets.net/hrltx12pl8hq/28ECAQiPJZ78hxatLTa7Ts/2f695d869736ae3b0de3e56ceaca3958/free-nature-images.jpg?fit=fill&w=1200&h=630',
+      id: 6,
+      title: 'sports',
     },
     {
-      id: 3,
-      title: 'Lorem ipsum dolor sit amet consectetur.',
-      owner: '@Crazy Technology',
-      date: 'April 27, 2023',
-      uri: 'https://imgv3.fotor.com/images/slider-image/A-clear-close-up-photo-of-a-woman.jpg',
-    },
-    {
-      id: 4,
-      title: 'Lorem ipsum dolor sit amet consectetur.',
-      owner: '@Crazy Technology',
-      date: 'April 27, 2023',
-      uri: 'https://cdn.pixabay.com/photo/2016/05/05/02/37/sunset-1373171_1280.jpg',
-    },
-    {
-      id: 5,
-      title: 'Lorem ipsum dolor sit amet consectetur.',
-      owner: '@Crazy Technology',
-      date: 'April 27, 2023',
-      uri: 'https://media.istockphoto.com/id/1132010479/vector/wow-comic-sound-effect-speech-balloon.jpg?s=612x612&w=0&k=20&c=Tnvhbu-rPLf3q3_naS9RhPfLKF91KppHP1M5kqQivXs=',
+      id: 7,
+      title: 'technology',
     },
   ];
 
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: theme.COLORS.WHITE,
-        paddingTop: 10,
-      }}>
-      {/* User Details  */}
-      <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <View style={{paddingHorizontal: 10}}>
-          <View
-            style={{
-              width: 60,
-              height: 60,
-              borderRadius: 50,
-              borderWidth: 1,
-              borderColor: theme.COLORS.PRIMARY,
-            }}>
-            <Image
-              source={
-                gender == 'male'
-                  ? require('../assets/images/profileImage/boy.png')
-                  : require('../assets/images/profileImage/girl.png')
-              }
-              style={{width: '100%', height: '100%'}}
-              resizeMode="contain"
-            />
+    <>
+      <StatusBar
+        animated={true}
+        barStyle={'dark-content'}
+        backgroundColor={theme.COLORS.WHITE}
+        hidden={false}
+      />
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: theme.COLORS.WHITE,
+          paddingTop: 10,
+        }}>
+        {/* User Details  */}
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <View style={{paddingHorizontal: 10}}>
+            <View
+              style={{
+                width: 60,
+                height: 60,
+                borderRadius: 50,
+                borderWidth: 1,
+                borderColor: theme.COLORS.PRIMARY,
+              }}>
+              <Image
+                source={
+                  gender == 'male'
+                    ? require('../assets/images/profileImage/boy.png')
+                    : require('../assets/images/profileImage/girl.png')
+                }
+                style={{width: '100%', height: '100%'}}
+                resizeMode="contain"
+              />
+            </View>
+          </View>
+          <View>
+            <Text
+              style={{
+                color: theme.COLORS.PRIMARY,
+                fontWeight: 'bold',
+                fontSize: 20,
+              }}>
+              {name.toUpperCase()}
+            </Text>
+            <Text
+              style={{
+                color: 'grey',
+                top: -2,
+                fontSize: 12,
+              }}>
+              {gender.toLowerCase()}
+            </Text>
           </View>
         </View>
-        <View>
+
+        {/* Greeting */}
+        <View style={{paddingHorizontal: 15, paddingVertical: 10}}>
           <Text
             style={{
-              color: theme.COLORS.PRIMARY,
+              color: theme.COLORS.BLACK,
               fontWeight: 'bold',
               fontSize: 20,
             }}>
-            {name.toUpperCase()}
-          </Text>
-          <Text
-            style={{
-              color: 'grey',
-              top: -2,
-              fontSize: 12,
-            }}>
-            {gender.toLowerCase()}
+            {greeting}
           </Text>
         </View>
-      </View>
 
-      {/* Greeting */}
-      <View style={{paddingHorizontal: 15, paddingVertical: 10}}>
-        <Text
-          style={{color: theme.COLORS.BLACK, fontWeight: 'bold', fontSize: 20}}>
-          {greeting}
-        </Text>
-      </View>
+        {/* Banner  */}
+        {topTrandingNewsData.length > 0 ? (
+          <View style={{height: 200, marginTop: 15}}>
+            <Banner data={topTrandingNewsData} />
+          </View>
+        ) : (
+          <View style={{height: 200, marginTop: 15}}>
+            <Loading width={100} height={100} />
+          </View>
+        )}
 
-      {/* Banner  */}
-      {bannerData.length > 0 ? (
-        <View style={{height: 200, marginTop: 15}}>
-          <Banner data={topTrandingNewsData} />
-        </View>
-      ) : null}
-
-      {/* Category  */}
-      <View
-        style={{
-          marginTop: 20,
-          paddingHorizontal: 5,
-        }}>
-        <FlatList
-          horizontal={true}
-          data={category}
-          renderItem={({item}) => {
-            return (
-              <TouchableOpacity
-                onPress={() => setSelectedCategoryId(item.id)}
-                style={{
-                  paddingHorizontal: 15,
-                  paddingVertical: 5,
-                  borderBottomWidth: 1,
-                  borderColor:
-                    item.id == selectedCategoryId
-                      ? theme.COLORS.PRIMARY
-                      : '#E9E9E9',
-                }}>
-                <Text
+        {/* Category  */}
+        <View
+          style={{
+            marginTop: 20,
+            paddingHorizontal: 5,
+          }}>
+          <FlatList
+            horizontal={true}
+            data={category}
+            renderItem={({item}) => {
+              let title = item.title;
+              return (
+                <TouchableOpacity
+                  onPress={() => {
+                    get_categpory_News_Data(item.title);
+                    setSelectedCategoryId(item.id);
+                    setTopCategoryNewsData([]);
+                  }}
                   style={{
-                    fontWeight: item.id == selectedCategoryId ? 'bold' : '400',
-                    color:
+                    paddingHorizontal: 15,
+                    paddingVertical: 5,
+                    borderBottomWidth: 1,
+                    borderColor:
                       item.id == selectedCategoryId
                         ? theme.COLORS.PRIMARY
-                        : 'grey',
-                    fontSize: 16,
-                  }}>
-                  {item.title}
-                </Text>
-              </TouchableOpacity>
-            );
-          }}
-        />
-      </View>
-
-      {/* Blog List  */}
-      <ScrollView contentContainerStyle={{paddingVertical: 15}}>
-        {blogList.map(item => {
-          return (
-            <TouchableOpacity
-              onPress={() => navigation.navigate('detailScreen')}
-              style={{
-                marginHorizontal: 15,
-                padding: 10,
-                backgroundColor: '#fff',
-                elevation: 4,
-                borderRadius: 10,
-                alignItems: 'center',
-                flexDirection: 'row',
-                marginVertical: 8,
-              }}>
-              <View
-                style={{
-                  width: '35%',
-                  height: 85,
-                  elevation: 3,
-                  backgroundColor: theme.COLORS.BLACK,
-                  borderRadius: 8,
-                  overflow: 'hidden',
-                }}>
-                <Image
-                  source={{
-                    uri: item.uri,
-                  }}
-                  style={{width: '100%', height: '100%'}}
-                  resizeMode="cover"
-                />
-              </View>
-              <View style={{height: '100%', flex: 1, paddingLeft: 10}}>
-                <View
-                  style={{
-                    flex: 1,
-                    justifyContent: 'flex-start',
+                        : '#E9E9E9',
                   }}>
                   <Text
-                    style={{color: '#000', fontWeight: 'bold', fontSize: 16}}
-                    numberOfLines={2}>
-                    {item.title}
+                    style={{
+                      fontWeight:
+                        item.id == selectedCategoryId ? 'bold' : '400',
+                      color:
+                        item.id == selectedCategoryId
+                          ? theme.COLORS.PRIMARY
+                          : 'grey',
+                      fontSize: 16,
+                    }}>
+                    {title.toUpperCase()}
                   </Text>
-                </View>
-                <View
+                </TouchableOpacity>
+              );
+            }}
+          />
+        </View>
+
+        {/* Blog List  */}
+        {topCategoryNewsData.length > 0 ? (
+          <ScrollView contentContainerStyle={{paddingVertical: 15}}>
+            {topCategoryNewsData.map(item => {
+              return (
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate('detailScreen', {
+                      data: item,
+                    })
+                  }
                   style={{
-                    flex: 1,
-                    justifyContent: 'flex-end',
-                    alignItems: 'flex-end',
+                    marginHorizontal: 15,
+                    padding: 10,
+                    backgroundColor: '#fff',
+                    elevation: 4,
+                    borderRadius: 10,
+                    alignItems: 'center',
+                    flexDirection: 'row',
+                    marginVertical: 8,
                   }}>
-                  <Text style={{fontSize: 12, color: '#000'}}>
-                    {item.owner}
-                  </Text>
-                  <Text style={{fontSize: 9, color: 'grey'}}>{item.date}</Text>
-                </View>
-              </View>
-            </TouchableOpacity>
-          );
-        })}
-      </ScrollView>
-    </View>
+                  <View
+                    style={{
+                      width: '35%',
+                      height: 85,
+                      // elevation: 3,
+                      backgroundColor: 'rgba(0,0,0,.3)',
+                      borderRadius: 8,
+                      overflow: 'hidden',
+                    }}>
+                    {console.log('lele mera: ', item.image)}
+                    {item.image != null ? (
+                      <Image
+                        source={{
+                          uri: item.image,
+                        }}
+                        style={{width: '100%', height: '100%'}}
+                        resizeMode="stretch"
+                      />
+                    ) : (
+                      <Image
+                        source={require('../assets/images/logo/logo2.png')}
+                        style={{width: '100%', height: '100%'}}
+                        resizeMode="contain"
+                      />
+                    )}
+                  </View>
+                  <View style={{height: '100%', flex: 1, paddingLeft: 10}}>
+                    <View
+                      style={{
+                        flex: 1,
+                        justifyContent: 'flex-start',
+                      }}>
+                      <Text
+                        style={{
+                          color: '#000',
+                          fontWeight: 'bold',
+                          fontSize: 16,
+                        }}
+                        numberOfLines={2}>
+                        {item.title}
+                      </Text>
+                    </View>
+                    <View
+                      style={{
+                        flex: 1,
+                        justifyContent: 'flex-end',
+                        alignItems: 'flex-end',
+                      }}>
+                      {item.author != null ? (
+                        <Text style={{fontSize: 12, color: '#000'}}>
+                          {item.author}
+                        </Text>
+                      ) : null}
+
+                      {item.published_at != null ? (
+                        <Text style={{fontSize: 10, color: '#000'}}>
+                          {item.published_at}
+                        </Text>
+                      ) : null}
+                    </View>
+                  </View>
+                </TouchableOpacity>
+              );
+            })}
+          </ScrollView>
+        ) : (
+          <View
+            style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+            <Loading width={100} height={100} />
+          </View>
+        )}
+      </View>
+    </>
   );
 };
 
