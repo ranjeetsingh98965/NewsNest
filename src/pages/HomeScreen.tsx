@@ -16,6 +16,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {TRANDING_NEWS_API, CATEGORY_NEWS_API} from '@env';
 import axios from 'axios';
 import Loading from '../components/Loading';
+import moment from 'moment';
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -41,7 +42,7 @@ const HomeScreen = () => {
   };
 
   const get_Top_News_Data = () => {
-    console.log('lele: ', TRANDING_NEWS_API);
+    // console.log('lele: ', TRANDING_NEWS_API);
     try {
       axios
         .get(
@@ -60,7 +61,7 @@ const HomeScreen = () => {
   };
 
   const get_categpory_News_Data = (category: String) => {
-    console.log('lele: ', TRANDING_NEWS_API);
+    // console.log('lele: ', CATEGORY_NEWS_API);
     try {
       axios
         .get(
@@ -147,6 +148,11 @@ const HomeScreen = () => {
       title: 'technology',
     },
   ];
+
+  const formatDateAndTime = timestamp => {
+    const formattedDate = moment(timestamp).format('DD MMM YYYY HH:mm:ss');
+    return formattedDate;
+  };
 
   return (
     <>
@@ -349,7 +355,7 @@ const HomeScreen = () => {
 
                       {item.published_at != null ? (
                         <Text style={{fontSize: 10, color: '#000'}}>
-                          {item.published_at}
+                          {formatDateAndTime(item.published_at)}
                         </Text>
                       ) : null}
                     </View>

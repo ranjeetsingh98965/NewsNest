@@ -111,7 +111,7 @@ const OnBoardingScreen = () => {
       <Modal transparent={true} visible={detailModal} animationType="fade">
         <StatusBar
           animated={true}
-          barStyle={'dark-content'}
+          barStyle={'light-content'}
           backgroundColor={'rgba(0,0,0,.6)'}
         />
         <View
